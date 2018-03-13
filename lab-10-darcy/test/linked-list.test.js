@@ -7,7 +7,7 @@ describe('Essential creation tests', function(){
     expect(1).toEqual(1);
   });
 
-  test.skip('new ListNode should create a node', () => {
+  test('new ListNode should create a node', () => {
     let blue = new ListNode(4);
     expect(blue.value).toEqual(4);
     expect(blue.next).toEqual(null);
@@ -18,7 +18,7 @@ describe('Essential creation tests', function(){
     expect(green.next.value).toEqual(4);
   });
 
-  test.skip('can create a LinkedList and attach nodes together', () => {
+  test('can create a LinkedList and attach nodes together', () => {
     let list = new LinkedList();
     let three = new ListNode(3);
     let four = new ListNode(4);
@@ -31,7 +31,7 @@ describe('Essential creation tests', function(){
     expect(list.root.next.next).toEqual(null);
   });
 
-  test.skip('list.toString() represents the list', () => {
+  test('list.toString() represents the list', () => {
     let list = new LinkedList();
     let three = new ListNode(3);
     let four = new ListNode(4);

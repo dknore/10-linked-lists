@@ -1,12 +1,15 @@
 'use strict';
 
 class ListNode {
-  constructor(value, next) {
+  constructor(value, next=null) {
+    this.value = value;
+    this.next = next;
   }
 }
 
 class LinkedList {
   constructor() {
+    this.root = null;
   }
 
   static fromArray(items) {
@@ -19,9 +22,14 @@ class LinkedList {
 
     let previousNode = null
     for (var i = items.length - 1; i >= 0; i--) {
+      let node = new ListNode(items[i]);
+      node.next = previousNode;
+      previousNode = node;
     }
-
     // set the root to point to the last node added at the front of the chain.
+    let list = new LinkedList();
+    list.root = previousNode;
+    return list;
   }
 
   // you get this method for free.
@@ -36,15 +44,29 @@ class LinkedList {
   }
 
   isEmpty() {
+    if(this.root === null || this.root === undefined) {
+      return true;
+    } 
+    return false;
   }
 
   size() {
+    let current = this.root;
+    let count = 0;
+    while (current !== null) {
+      count++;
+      current = current.next;
+    }
+    return count;
   }
 
   append(value) {
   }
 
   prepend(value) {
+    let node = new ListNode(value);
+    node.next = this.root;
+    this.root = node;
   }
 
   remove(value) {
