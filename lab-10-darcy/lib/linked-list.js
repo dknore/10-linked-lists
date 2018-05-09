@@ -13,26 +13,17 @@ class LinkedList {
   }
 
   static fromArray(items) {
-    // Build the list up backwards.
-    // Start by creating the last node that points to nothing.
-    // Then make the second-to-last node and point it
-    // to the last node.
-    // Then make another node and point it to the second-to-last node.
-    // Do this until the list is entirely built up.
-
-    let previousNode = null
+    let previousNode = null;
     for (var i = items.length - 1; i >= 0; i--) {
       let node = new ListNode(items[i]);
       node.next = previousNode;
       previousNode = node;
     }
-    // set the root to point to the last node added at the front of the chain.
     let list = new LinkedList();
     list.root = previousNode;
     return list;
   }
 
-  // you get this method for free.
   toString() {
     let result = 'root';
     let current = this.root;
@@ -61,6 +52,18 @@ class LinkedList {
   }
 
   append(value) {
+    if (this.root === null) {
+      this.root = new ListNode(value, null);
+    } else {
+      let currentNode = this.root;
+      while (currentNode) {
+        if (currentNode.next === null) {
+          currentNode.next = new ListNode(value, null);
+          break;
+        }
+        currentNode = currentNode.next;
+      }
+    }
   }
 
   prepend(value) {
@@ -70,35 +73,37 @@ class LinkedList {
   }
 
   remove(value) {
-    // rewrite the root node if the value is at the front.
-
-    // start at the front
-    // look for a node that points to the node we want to remove.
-
-    // save the result
-    // make the current node point to the node after the node we're removing
   }
 
   find(value) {
+    let currentNode = this.root;
+    while (currentNode) {
+      if (currentNode.value === value) {
+        return currentNode;
+      } else {
+        currentNode = currentNode.next;
+      }
+    }
+    return -1;
   }
 
   hasCycle() {
   }
 
   reverse() {
+    let newList = new LinkedList();
+    let currentNode = this.root;
+    while (currentNode) {
+      newList.prepend(currentNode.value);
+      currentNode = currentNode.next;
+    }
+    this.root = newList.root;
   }
 
   getMiddle(list) {
   }
 
   getNthFromLast(n) {
-    // make two pointers and start them at the front.
-
-    // move the offset pointer N nodes forward
-
-    // now move both nodes forward simultaneously.
-    // When the offset node hits the end of the list
-    // the nBehind node will be N nodes from the end of the list.
   }
 
   getLast() {
@@ -112,7 +117,6 @@ class LinkedList {
   }
 
   getNth(n) {
-    // step forward N times.
   }
 
   getFirst() {
