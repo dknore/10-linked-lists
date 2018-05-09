@@ -73,6 +73,23 @@ class LinkedList {
   }
 
   remove(value) {
+    if (this.root.value === value) {
+      this.root = this.root.next;
+    } else {
+      let previousNode = this.root;
+      let currentNode = previousNode.next;
+      let nextNode = currentNode.next;
+      while (currentNode !== null) {
+        if (currentNode.value === value) {
+          previousNode.next = nextNode;
+          break;
+        } else {
+          previousNode = currentNode;
+          currentNode = previousNode.next;
+          nextNode = currentNode.next;
+        }
+      }
+    }
   }
 
   find(value) {
@@ -128,17 +145,48 @@ class LinkedList {
   getThird() {
   }
 
-  forEach(cb) {
+  forEach(callback) {
+    let currentNode = this.root;
+    while (currentNode) {
+      callback(currentNode);
+      currentNode = currentNode.next;
+    }
   }
 
-  map(cb) {
+  map(callback) {
+    let currentNode = this.root;
+    let newList = new LinkedList();
+    while (currentNode) {
+      let newNodeVal = callback(currentNode);
+      newList.append(newNodeVal);
+      currentNode = currentNode.next;
+    }
+    return newList;
   }
 
-  filter(cb) {
+  filter(callback) {
+    let currentNode = this.root;
+    let newList = new LinkedList();
+    while (currentNode) {
+      if (callback(currentNode)) {
+        newList.append(currentNode.value);
+        currentNode = currentNode.next;
+      } else {
+        currentNode = currentNode.next;
+      }
+    }
+    return newList;
   }
 
-  reduce(cb, initial) {
+  reduce(callback, initial) {
+    let accumulator = initial;
+    let currentNode = this.root;
+    while (currentNode) {
+      accumulator += currentNode.value;
+      currentNode = currentNode.next;
+    }
+    return accumulator;
   }
 }
 
-module.exports = {LinkedList, ListNode}
+module.exports = {LinkedList, ListNode};
